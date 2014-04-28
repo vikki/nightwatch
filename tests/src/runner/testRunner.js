@@ -86,6 +86,25 @@ module.exports = {
     });
   },
 
+  testRunAsyncWithCtx : function(test) {
+        test.expect(6);
+
+        Runner.run([process.cwd() + '/sampletests/asyncWithCtx'], {
+            seleniumPort : 10195,
+            silent : true,
+            output : false,
+            globals : {
+                test : test
+            }
+        }, {
+            output_folder : false
+        }, function(err, results) {
+            test.equals(err, null);
+            test.ok('sample' in results.modules);
+            test.ok('demoTestAsyncWithCtx' in results.modules.sample);
+            test.done();
+        });
+    },
   testRunMixed : function(test) {
     test.expect(6);
 
